@@ -1,0 +1,41 @@
+
+$w.onReady(function () { //Dont paste this if there is one already
+
+    // ===============================
+    // Scroll Triggered Counter Animation
+    // ===============================
+    $w("#Sectioncountdown").onViewportEnter(async () => {
+
+        await countElement("#text18", 0, 200, "", "+");
+        await countElement("#text20", 0, 40, "", "+");
+        await countElement("#text22", 0, 5, "", "");
+
+    });
+
+    // ===============================
+    // Counter Function
+    // Animates numbers from startValue → endValue
+    // ===============================
+    function countElement(element, startValue, endValue, prefix = "", suffix = "") {
+
+        const duration = 2000; // total animation time (ms)
+        const interval = 20;   // update speed (ms)
+        const increment = (endValue - startValue) / (duration / interval);
+
+        let currentValue = startValue;
+
+        const timer = setInterval(() => {
+            currentValue += increment;
+
+            $w(element).text =
+                prefix +
+                Math.round(currentValue).toLocaleString("en-US") +
+                suffix;
+
+            if (currentValue >= endValue) {
+                clearInterval(timer);
+            }
+        }, interval);
+    }
+
+});
